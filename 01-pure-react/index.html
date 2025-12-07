@@ -10,12 +10,12 @@
     <div id="root"></div>
 
     <script
-      src="https://unpkg.com/react@18/umd/react.development.js"
       crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
     ></script>
     <script
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
       crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
     ></script>
 
     <script>
@@ -29,7 +29,11 @@
           }, 1000);
         }, []);
 
-        return React.createElement("header", null, `Hello React! It's ${time}`);
+        return React.createElement(
+          "header",
+          null,
+          `Hello React! 😁 It's ${time}`
+        );
       }
 
       const root = ReactDOM.createRoot(document.getElementById("root"));
