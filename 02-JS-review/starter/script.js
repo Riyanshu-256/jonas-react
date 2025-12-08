@@ -142,3 +142,168 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+/*
+// DESTRUCTURING
+
+const book = getBook(3);
+book;
+
+// This is not good approach to read data of book
+// const title = book.title;
+// const author = book.author;
+
+// Destructing is a good methos
+const { title, author, pages, publicationDate, hasMovieAdaptation, genres } =
+  book;
+console.log(title, author, genres);
+
+// const primaryGenre = genres[0];
+// const secondaryGenre = genres[1];
+
+const [primaryGenre, secondaryGenre, ...otherGenre] = genres;
+
+console.log(primaryGenre, secondaryGenre, otherGenre);
+
+const newGenres = ["epic fantasy", ...genres];
+newGenres;
+
+const updatedBook = {
+  moviePublicationDate: "2001-12-19",
+  pages: 1210,
+  ...book,
+};
+updatedBook;
+
+// Old way of declaring a function
+// function getYear(str) {
+//   return str.split("-")[0];
+// }
+
+// modern way : arrow function
+const getYear = (str) => str.split("-")[0];
+console.log(getYear(publicationDate));
+
+const summary = `${title}, a ${pages}--page long book, was written by ${author} and published in ${
+  publicationDate.split("-")[0]
+}. The book has ${hasMovieAdaptation ? "" : "not"} has been adapted as a movie`;
+summary;
+
+const pagesRange = pages > 1000 ? "over a thousand" : "less tha 1000";
+pagesRange;
+console.log(`The book has ${pagesRange} pages`);
+
+console.log(true && "Some string");
+console.log(false && "Some string");
+console.log(hasMovieAdaptation && "This book has a movie");
+
+// falsy: 0, '', null,undefined
+console.log("jonas");
+console.log(0 && "Some string");
+
+console.log(true || false);
+console.log(true || true);
+console.log(false || false);
+
+const koreanTranslation = book.translations.korean || "NOT TRANSLATED";
+koreanTranslation;
+
+// OPTIONAL CHAINNING
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews.goodreads.reviewsCount;
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+  return goodreads + librarything;
+}
+
+console.log(getTotalReviewCount(book));
+*/
+
+//---------------------------------------------------------------------------------------------------------------------//
+
+/*
+// MAP
+const books = getBooks(); // give entire book of a array
+books;
+
+const x = [1, 2, 3, 4, 5].map((el) => el * 10);
+console.log(x);
+
+const titles = books.map((book) => book.title);
+titles;
+
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews.goodreads.reviewsCount;
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+  return goodreads + librarything;
+}
+
+const essentialData = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+  reviewsCount: getTotalReviewCount(book),
+}));
+essentialData;
+
+// FILTER
+const longBooks = books.filter((book) => book.pages > 500);
+longBooks;
+
+const adventureBooks = books.filter((books) =>
+  books.genres.includes("adventure")
+);
+adventureBooks;
+
+// REDUCE
+const pagesAllBooks = books.reduce((acc, book) => acc + book.pages, 0);
+pagesAllBooks;
+
+// ARRAY SORT
+const arr = [3, 7, 1, 9, 6];
+const sorted = arr.slice().sort((a, b) => a - b);
+arr;
+sorted;
+
+const sortedByPages = books.slice().sort((a, b) => b.pages - a.pages);
+sortedByPages;
+
+// IMMUTUABLE ARRAY
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the Chamber of Secrets",
+  author: "J.K. Rowling",
+};
+
+// 1) Add a new book object to the array
+const booksAfterAdd = [...books, newBook];
+booksAfterAdd;
+
+// 2) Delete a book from the array
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+booksAfterDelete;
+
+// 3) Update a book inside the array
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+  book.id === 2 ? { ...book, pages: 1210 } : book
+);
+booksAfterUpdate;
+*/
+
+//---------------------------------------------------------------------------------------------------------------------//
+
+// fetch("https://jsonplaceholder.typicode.com/todos")
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
+
+// console.log("jonas");
+
+async function getTodos() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await res.json();
+  console.log(data);
+  return data;
+}
+
+const todos = getTodos();
+console.log(todos); // Promise { <pending> }
+
+console.log("jonas");
