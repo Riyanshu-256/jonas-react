@@ -1,12 +1,15 @@
-// Importing the core React library.
-// Even if not always required, React provides JSX support, components, hooks, etc.
+// Import React so we can write JSX and create components
 import React from "react";
 
-// Importing ReactDOM from the new React 18 entry point.
-// This is used to create a root and render the React app into the browser.
+// Import ReactDOM to show our app on the webpage
 import ReactDOM from "react-dom/client";
+
+// Import our CSS file
 import "./index.css";
 
+// ======================
+// 🍕 Pizza data (list of pizzas)
+// ======================
 const pizzaData = [
   {
     name: "Focaccia",
@@ -41,7 +44,7 @@ const pizzaData = [
     ingredients: "Tomato, mozarella, and pepperoni",
     price: 15,
     photoName: "pizzas/salamino.jpg",
-    soldOut: true,
+    soldOut: true, // this pizza is sold out
   },
   {
     name: "Pizza Prosciutto",
@@ -52,81 +55,111 @@ const pizzaData = [
   },
 ];
 
+// ======================
+// 🌟 Main App Component
+// ======================
 function App() {
   return (
     <div className="container">
-      <Header />;
+      {/* Top heading */}
+      <Header />
+
+      {/* Pizza list */}
       <Menu />
+
+      {/* Footer */}
       <Footer />
     </div>
   );
 }
 
+// ======================
+// 🏷️ Header Component
+// ======================
 function Header() {
-  // const style = { color: "red", fontSize: "48px", textTransform: "uppercase" };
-  const style = {};
-
   return (
     <header className="header">
-      <h1 style={style}>Fast React Pizza Co.</h1>
+      {/* Website name */}
+      <h1>Fast React Pizza Co.</h1>
     </header>
   );
 }
 
+// ======================
+// 📋 Menu Component
+// ======================
 function Menu() {
   return (
     <main className="menu">
+      {/* Small heading */}
       <h2>Our Menu</h2>
-      <Pizza
-        name="Pizza Spinaci"
-        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-        photoName="pizzas/spinaci.jpg"
-        price={10}
-      />
 
-      <Pizza
-        name="Pizza Funghi"
-        ingredients="Tomato, mushrooms"
-        price={12}
-        photoName="pizzas/funghi.jpg"
-      />
+      {/* Loop through all pizzas and show them one by one */}
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name} />
+        ))}
+      </ul>
     </main>
   );
 }
 
-// Create a component
+// ======================
+// 🍕 Single Pizza Component
+// ======================
 function Pizza(props) {
-  console.log(props);
+  // Get pizza details from props
+  const { pizzaObj } = props;
+
   return (
-    <div className="pizza">
-      <img src={props.photoName} alt={props.name} />
+    // Add "sold-out" class if pizza is sold out
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
+      {/* Pizza image */}
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
+
       <div>
-        <h3>{props.name}</h3>
-        <p>{props.ingredients}</p>
-        <span>{props.price + 3}</span>
+        {/* Pizza name */}
+        <h3>{pizzaObj.name}</h3>
+
+        {/* Pizza ingredients */}
+        <p>{pizzaObj.ingredients}</p>
+
+        {/* Show price OR sold out message */}
+        <span>{pizzaObj.soldOut ? "SOLD OUT" : `${pizzaObj.price}`}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
+// ======================
+// ⏳ Footer Component
+// ======================
 function Footer() {
+  // Get current time hour
   const hour = new Date().getHours();
+
+  // Shop open and close timing
   const openHour = 8;
   const closeHour = 22;
-  const isOpen = hour >= openHour && hour <= closeHour;
-  console.log(isOpen);
 
-  // if (hour >= openHour && hour <= closeHour) alert("We're currently open!");
-  // else alert("Sorry we're closed");
+  // Check if shop is open
+  const isOpen = hour >= openHour && hour <= closeHour;
 
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()}. We're currently open
+      {/* Show different message if shop open or closed */}
+      {isOpen
+        ? `We’re open until ${closeHour}:00. Come visit us!`
+        : `Sorry, we’re closed right now.`}
     </footer>
   );
 }
 
+// ======================
+// 🚀 Render App on Screen
+// ======================
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <App />
