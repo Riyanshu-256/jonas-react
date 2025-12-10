@@ -89,17 +89,42 @@ function Header() {
 // 📋 Menu Component
 // ======================
 function Menu() {
-  return (
-    <main className="menu">
-      {/* Small heading */}
-      <h2>Our Menu</h2>
+  // Getting all pizzas from pizzaData array
+  const pizzas = pizzaData;
 
-      {/* Loop through all pizzas and show them one by one */}
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-        ))}
-      </ul>
+  // You can also try with an empty array to test "no pizzas" condition
+  // const pizzas = [];
+
+  // Counting how many pizzas are available
+  const numPizzas = pizzas.length;
+
+  return (
+    // Main container for the menu section
+    <main className="menu">
+      {/* Heading for the menu */}
+      <h2>Our menu</h2>
+
+      {/* If numPizzas > 0 then show paragraph + pizza list, else show nothing */}
+      {numPizzas > 0 ? (
+        <>
+          {/* Description text */}
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from our stone oven, all organic, all delicious.
+          </p>
+
+          {/* List of pizzas */}
+          <ul className="pizzas">
+            {/* Loop through each pizza and render a Pizza component */}
+            {pizzas.map((pizza) => (
+              // Passing each pizza object as a prop + adding a unique key
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p>We're still working on our menu. Please come back later</p>
+      )}
     </main>
   );
 }
