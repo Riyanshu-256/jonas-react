@@ -139,7 +139,7 @@ function Footer() {
   const hour = new Date().getHours();
 
   // Shop open and close timing
-  const openHour = 8;
+  const openHour = 7;
   const closeHour = 22;
 
   // Check if shop is open
@@ -151,7 +151,7 @@ function Footer() {
         Else → show timing message */}
       {isOpen ? (
         // Passing closeHour as a prop to Order component
-        <Order closeHour={closeHour} />
+        <Order closeHour={closeHour} openHour={openHour} />
       ) : (
         // Message shown when restaurant is closed
         <p>
@@ -163,12 +163,13 @@ function Footer() {
 }
 
 // Order component (child component)
-function Order(props) {
+function Order({ openHour, closeHour }) {
   return (
     <div className="order">
       {/* Showing closing time using props from parent */}
       <p>
-        We're open until {props.closeHour}:00. Come visit us or order online.
+        We're open from {openHour}:00. to {closeHour}:00. Come visit us or order
+        online.
       </p>
 
       {/* Order button */}
