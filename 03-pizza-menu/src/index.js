@@ -147,9 +147,13 @@ function Footer() {
 
   return (
     <footer className="footer">
+      {/* If restaurant is open → show Order component
+        Else → show timing message */}
       {isOpen ? (
+        // Passing closeHour as a prop to Order component
         <Order closeHour={closeHour} />
       ) : (
+        // Message shown when restaurant is closed
         <p>
           We’re happy to welcome you between {openHour}:00 and {closeHour}:00.
         </p>
@@ -158,12 +162,16 @@ function Footer() {
   );
 }
 
+// Order component (child component)
 function Order(props) {
   return (
     <div className="order">
+      {/* Showing closing time using props from parent */}
       <p>
         We're open until {props.closeHour}:00. Come visit us or order online.
       </p>
+
+      {/* Order button */}
       <button className="btn">Order</button>
     </div>
   );
