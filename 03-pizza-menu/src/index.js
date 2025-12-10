@@ -147,10 +147,16 @@ function Footer() {
 
   return (
     <footer className="footer">
-      {/* Show different message if shop open or closed */}
-      {isOpen
-        ? `We’re open until ${closeHour}:00. Come visit us!`
-        : `Sorry, we’re closed right now.`}
+      {isOpen ? (
+        <div className="order">
+          <p>We're open until {closeHour}:00. Come visit us or order online.</p>
+          <button className="btn">Order</button>
+        </div>
+      ) : (
+        <p>
+          We’re happy to welcome you between {openHour}:00 and {closeHour}:00.
+        </p>
+      )}
     </footer>
   );
 }
